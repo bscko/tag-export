@@ -1,10 +1,10 @@
-import * as core from "@actions/core";
 import { exec, getExecOutput } from "@actions/exec";
 import { context, getOctokit } from "@actions/github";
-import fs from "node:fs/promises";
-import { tmpdir } from "node:os";
-import path from "node:path";
+import * as core from "@actions/core";
 import semver from "semver";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { tmpdir } from "node:os";
 
 const getLastMergedPullRequest = async (
   octokit: any,
