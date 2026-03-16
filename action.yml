@@ -1,8 +1,8 @@
-name: 'Bit Tag and Export'
-description: 'Persist Bit Soft Tags and Export to Remote Scope'
-branding: 
-  icon: 'upload-cloud'
-  color: 'purple'
+name: "Bit Tag and Export"
+description: "Persist Bit Soft Tags and Export to Remote Scope"
+branding:
+  icon: "upload-cloud"
+  color: "purple"
 inputs:
   ws-dir:
     description: "Workspace json file directory path"
@@ -30,6 +30,9 @@ inputs:
   increment-by:
     description: "Increment by"
     required: false
+  skip-push:
+    description: "Skip pushing the changes to the remote repository (useful when CI handles the push separately)"
+    required: false
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: "node20"
+  main: "dist/index.js"

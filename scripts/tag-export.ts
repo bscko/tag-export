@@ -1,10 +1,10 @@
+import * as core from "@actions/core";
 import { exec, getExecOutput } from "@actions/exec";
 import { context, getOctokit } from "@actions/github";
-import * as core from "@actions/core";
-import semver from "semver";
 import fs from "node:fs/promises";
-import path from "node:path";
 import { tmpdir } from "node:os";
+import path from "node:path";
+import semver from "semver";
 
 const getLastMergedPullRequest = async (
   octokit: any,
@@ -75,7 +75,7 @@ function getOverridenVersions(labels?: any[]): string[] {
     });
 }
 
-const run = async (githubToken: string, wsdir: string, build: boolean, increment: string, prereleaseId: string, incrementBy: number, strict: boolean) => {
+const run = async (githubToken: string, wsdir: string, build: boolean, increment: string, prereleaseId: string, incrementBy: number, strict: boolean, skipPush: boolean) => {
   const version = await getExecOutput("bit -v", [], { cwd: wsdir });
 
   // If the version is lower than 1.12.45, throw an error recommending to downgrade the action version to v2
@@ -117,6 +117,10 @@ const run = async (githubToken: string, wsdir: string, build: boolean, increment
 
   if (strict) {
     mergeArgs.push("--strict");
+  }
+
+  if (skipPush) {
+    mergeArgs.push("--skip-push");
   }
 
   if (globalVersion) {
